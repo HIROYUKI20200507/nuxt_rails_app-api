@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+table_names = %w(
+    users
+)
+
+table_names.each do |table_names|
+    path = Rails.root.join("db/seeds/#{Rails.env}/#{table_names}.rb")
+
+    path = path.sub(Rails.env, "development") unless File.exist?(path)
+
+    puts "#{table_names}..."
+
+    require path
+end
